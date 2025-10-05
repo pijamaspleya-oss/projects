@@ -13,7 +13,7 @@ import pandas as pd
 chrome_options = Options()
 
 # --- REEMPLAZAR CON RUTA ABSOLUTA DEL CHROMEDRIVER ---
-service = Service("drivers/chromedriver.exe")  # <-- Cambia esta ruta a la ruta absoluta de tu chromedriver
+service = Service("/content/projects/drivers/chromedriver")  # <-- Cambia esta ruta a la ruta absoluta de tu chromedriver
 
 # --- INICIAR NAVEGADOR ---
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -66,3 +66,4 @@ for i in range(1):
     time.sleep(1.5)
 
 print("HISTORICO #4", driver.save_screenshot("Ultima_actuacion.png"))
+
