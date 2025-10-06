@@ -1,0 +1,29 @@
+name Notificar leyes nuevas
+
+on
+  schedule
+    - cron '0 6   '  # Cada 6 horas
+  workflow_dispatch       # También puedes ejecutarlo manualmente
+
+jobs
+  ejecutar_bot
+    runs-on ubuntu-latest
+
+    steps
+    - name Clonar repositorio
+      uses actionscheckout@v3
+
+    - name Configurar Python
+      uses actionssetup-python@v4
+      with
+        python-version '3.10'
+
+    - name Instalar dependencias
+      run pip install -r requirements.txt
+
+    - name Ejecutar script
+      env
+        WHATSAPP_TOKEN ${{ secrets.WHATSAPP_TOKEN }}
+        WHATSAPP_INSTANCE ${{ secrets.WHATSAPP_INSTANCE }}
+        DESTINO ${{ secrets.DESTINO }}
+      run python leyes_bot.py
