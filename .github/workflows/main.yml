@@ -23,11 +23,11 @@ jobs:
 
     - name: Instalar dependencias
       run: |
-        !pip install selenium
-	!pip install webdriver-manager
-	!apt-get update
-	!apt-get install -y google-chrome-stable 
-	!apt-get update
-	!apt install chromium-chromedriver -y
-	!cp /usr/lib/chromium-browser/chromedriver /usr/bin
-	!pip install selenium webdriver-manager
+        pip install selenium
+	 	pip install webdriver-manager
+		apt-get update
+		apt-get install -y google-chrome-stable 
+		apt-get update
+		apt install chromium-chromedriver -y
+		cp /usr/lib/chromium-browser/chromedriver /usr/bin
+		pip install selenium webdriver-manager
