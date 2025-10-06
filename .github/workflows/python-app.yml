@@ -1,5 +1,4 @@
 name Consulta de procesos judiciales
-
 on:
   schedule:
     - cron: '0 */1 * * *'  # Cada 6 horas
