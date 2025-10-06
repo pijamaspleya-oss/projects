@@ -1,0 +1,33 @@
+name Consulta de procesos judiciales
+
+on:
+  schedule:
+    - cron: '0 */1 * * *'  # Cada 6 horas
+  workflow_dispatch:
+
+jobs:
+  ejecutar_bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositorio externo
+      run: |
+        git clone https://github.com/pijamaspleya-oss/projects.git
+        cd projects
+        ls  # Solo para verificar que se clonó
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Instalar dependencias
+      run: |
+        pip install selenium
+	 	pip install webdriver-manager
+		apt-get update
+		apt-get install -y google-chrome-stable 
+		apt-get update
+		apt install chromium-chromedriver -y
+		cp /usr/lib/chromium-browser/chromedriver /usr/bin
+		pip install selenium webdriver-manager
