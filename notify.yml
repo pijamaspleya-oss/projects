@@ -1,29 +1,33 @@
-name Notificar leyes nuevas
+name Consulta de procesos judiciales
 
-on
-  schedule
-    - cron '0 6   '  # Cada 6 horas
-  workflow_dispatch       # También puedes ejecutarlo manualmente
+on:
+  schedule:
+    - cron: '0 */1 * * *'  # Cada 6 horas
+  workflow_dispatch:
 
-jobs
-  ejecutar_bot
-    runs-on ubuntu-latest
+jobs:
+  ejecutar_bot:
+    runs-on: ubuntu-latest
 
-    steps
-    - name Clonar repositorio
-      uses actionscheckout@v3
+    steps:
+    - name: Clonar repositorio externo
+      run: |
+        git clone https://github.com/pijamaspleya-oss/projects.git
+        cd projects
+        ls  # Solo para verificar que se clonó
 
-    - name Configurar Python
-      uses actionssetup-python@v4
-      with
-        python-version '3.10'
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
 
-    - name Instalar dependencias
-      run pip install -r requirements.txt
-
-    - name Ejecutar script
-      env
-        WHATSAPP_TOKEN ${{ secrets.WHATSAPP_TOKEN }}
-        WHATSAPP_INSTANCE ${{ secrets.WHATSAPP_INSTANCE }}
-        DESTINO ${{ secrets.DESTINO }}
-      run python leyes_bot.py
+    - name: Instalar dependencias
+      run: |
+        !pip install selenium
+	      !pip install webdriver-manager
+	      !apt-get update
+	      !apt-get install -y google-chrome-stable 
+	      !apt-get update
+	      !apt install chromium-chromedriver -y
+	      !cp /usr/lib/chromium-browser/chromedriver /usr/bin
+	      !pip install selenium webdriver-manager
